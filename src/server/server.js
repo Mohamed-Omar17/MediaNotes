@@ -15,9 +15,10 @@ const db = new pg.Client({ //change the password, user, and database names to wh
 db.connect();
 
 
-let user = "Rayan"; //set this to the email you use to test
+let user = "Mohamed"; //set this to the email you use to test
 let game = ""
 
+app.use(express.json());
 
 app.get ("/api", async (req, res) => {
   let result;
@@ -35,6 +36,28 @@ app.get ("/api", async (req, res) => {
   console.log(items); // Check what's being sent
   res.json({ postData: items });
 })
+
+
+app.post('/add-note', async (req, res) => {
+  const { email, title, note, media_name } = req.body;
+  console.log(email);
+
+  try {
+    console.log("Received data:", req.body); // Add this
+
+    //Insert note
+    await db.query(
+      `INSERT INTO notes (title, note, user_email, media_name)
+       VALUES ($1, $2, $3, $4)`,
+      [title, note, email, media_name]
+    );
+
+    res.status(200).json({ message: 'Note added successfully' });
+  } catch (err) {
+    console.error("Error inserting note:", err); // Log the real error
+    res.status(500).json({ error: 'Failed to add note' });
+  }
+});
 
 app.listen(3100, () => {
   console.log("Listening on port 3100.");

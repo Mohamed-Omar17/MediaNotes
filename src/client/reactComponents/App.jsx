@@ -4,12 +4,14 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios';
 import Card from './Card';
+import AddNoteForm from './AddNoteForm';
 
 function App() {
 
   return (
     <div>
     <Card />
+    <AddNoteForm />
     </div>
   )
 }
