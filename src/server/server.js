@@ -31,7 +31,7 @@ app.get ("/api", async (req, res) => {
     "SELECT * FROM notes WHERE user_email = $1;", [user]);
   }
     let items = []; //appends each item from that user into the items array
-  result.rows.forEach((item) => items.push({media: item.title, title: item.note, email: item.user_email, name : item.media_name}));
+  result.rows.forEach((item) => items.push({id : item.id, media: item.title, title: item.note, email: item.user_email, name : item.media_name}));
   
   console.log(items); // Check what's being sent
   res.json({ postData: items });
@@ -56,6 +56,19 @@ app.post('/add-note', async (req, res) => {
   } catch (err) {
     console.error("Error inserting note:", err); // Log the real error
     res.status(500).json({ error: 'Failed to add note' });
+  }
+});
+
+
+app.delete('/api/delete/:id', async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  try {
+    await db.query('DELETE FROM notes WHERE id = $1', [id]);
+    res.status(200).json({ message: 'Item deleted' });
+  } catch (error) {
+    console.error('Delete error:', error);
+    res.status(500).json({ error: 'Failed to delete item' });
   }
 });
 
