@@ -1,10 +1,33 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+import AddNoteForm from './AddNoteForm';
+
 
 function Card() {
 
-    const [data, setData] = useState([])
+    const { mediaId } = useParams();
+
+
+    const location = useLocation();
+    const notes = location.state || []; // fallback to [] if undefined
+
+    const [data, setData] = useState(notes);
+
+    useEffect(() => {
+    axios.get(`http://localhost:3100/api/${mediaId}`)
+      .then(response => {
+        console.log("Fetched notes:", response.data);
+        setData(response.data.postData); // or whatever key your backend returns
+      })
+      .catch(error => {
+        console.error("Error fetching notes:", error);
+      });
+  }, [mediaId]);
+
 
     const handleDelete = async (id) => {
       try {
@@ -16,21 +39,12 @@ function Card() {
       }
     }
 
-
-    useEffect(() => {
-    axios.get('http://localhost:3100/api')
-    .then(response => {
-      console.log('Fetched data:', response.data); 
-      setData(response.data.postData);
-    })
-    .catch(error => {
-      console.log('Error fetching data:', error)
-    })
-  }, [])
+  const gameTitle = data.length > 0 ? data[0].name : navigate('/');
+    
 
   return (
     <div>
-      <h2>Card Component</h2>
+      <h2>Notes For: {gameTitle || "Empty"}</h2>
       {data.map((item, index) => (
         <div key={index} className="card">
           <h3>{item.name}</h3>
@@ -41,6 +55,7 @@ function Card() {
           <button onClick={() => handleDelete(item.id)}>Delete</button>
         </div>
       ))}
+      <AddNoteForm  title={gameTitle} />
     </div>
   )
 }

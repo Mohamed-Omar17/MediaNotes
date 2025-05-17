@@ -7,13 +7,16 @@ import axios from 'axios';
 import Card from './Card';
 import AddNoteForm from './AddNoteForm';
 import Test from '../../pages/Test';
+import LoginSignup from './LoginSignup';
+import UserHome from '../../pages/UserHome';
 
 function App() {
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<Test />} />
+        <Route path="/" element={<UserHome />} />
+        <Route path="/notes/:mediaId" element={<Card />} />
       </Routes>
     </>
   )

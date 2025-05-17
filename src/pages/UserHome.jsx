@@ -1,0 +1,68 @@
+import React from 'react';
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+
+function UserHome() {
+    const [data, setData] = useState([])
+    const navigate = useNavigate();
+    const [selectedGame, setSelectedGame] = useState(null);
+
+    const handleDelete = async (id) => {
+      try {
+        await axios.delete(`http://localhost:3100/api/delete/${id}`);
+        setData(prevData => prevData.filter(item => item.id !== id));
+      }
+      catch(error) {
+        console.error("Error deleting item:", error);
+      }
+    }
+
+    const handleCardClick = (mediaId, mediaTitle) => {
+        axios.get(`http://localhost:3100/api/${mediaId}`)
+            .then(response => {
+                console.log("Fetched notes:", response.data);
+                // Optional: pass notes via state if you want
+                navigate(`/notes/${mediaId}`, { state: response.data.postData });
+            })
+            .catch(error => {
+                console.error("Error fetching notes:", error);
+        });
+  };
+
+
+    useEffect(() => {
+    axios.get('http://localhost:3100/media')
+    .then(response => {
+      console.log('Fetched data:', response.data); 
+      setData(response.data.postData);
+    })
+    .catch(error => {
+      console.log('Error fetching data:', error)
+    })
+    }, []);
+
+  return (
+    <div>
+      <h2>Card Component</h2>
+      {data.map((item, index) => (
+        <button
+            key={index}
+            onClick={() => handleCardClick(item.id, item.title)}
+            className="card"
+        >
+            <div>
+            <h3>{item.name}</h3>
+            <p>{item.title}</p>
+            <p>{item.media_type}</p>
+            <p>{item.user_email}</p>
+            </div>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+
+export default UserHome;
