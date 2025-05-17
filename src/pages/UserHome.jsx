@@ -32,6 +32,11 @@ function UserHome() {
   };
 
 
+    const createNewNoteWithGame = () => {
+        navigate(`/create-note`);
+    };
+
+
     useEffect(() => {
     axios.get('http://localhost:3100/media')
     .then(response => {
@@ -44,23 +49,32 @@ function UserHome() {
     }, []);
 
   return (
-    <div>
-      <h2>Card Component</h2>
-      {data.map((item, index) => (
+    <>
+      <div>
         <button
-            key={index}
-            onClick={() => handleCardClick(item.id, item.title)}
-            className="card"
-        >
-            <div>
-            <h3>{item.name}</h3>
-            <p>{item.title}</p>
-            <p>{item.media_type}</p>
-            <p>{item.user_email}</p>
-            </div>
-        </button>
-      ))}
-    </div>
+              onClick={() => createNewNoteWithGame()}
+          >
+              Create Note
+          </button>
+      </div>
+      <div>
+        <h2>Card Component</h2>
+        {data.map((item, index) => (
+          <button
+              key={index}
+              onClick={() => handleCardClick(item.id, item.title)}
+              className="card"
+          >
+              <div>
+              <h3>{item.name}</h3>
+              <p>{item.title}</p>
+              <p>{item.media_type}</p>
+              <p>{item.user_email}</p>
+              </div>
+          </button>
+        ))}
+      </div>
+    </>
   )
 }
 

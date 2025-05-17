@@ -3,6 +3,7 @@ import './App.css'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import AddNoteForm from './AddNoteForm';
 
@@ -10,7 +11,7 @@ import AddNoteForm from './AddNoteForm';
 function Card() {
 
     const { mediaId } = useParams();
-
+    const navigate = useNavigate();
 
     const location = useLocation();
     const notes = location.state || []; // fallback to [] if undefined
@@ -33,6 +34,7 @@ function Card() {
       try {
         await axios.delete(`http://localhost:3100/api/delete/${id}`);
         setData(prevData => prevData.filter(item => item.id !== id));
+        navigate("/");
       }
       catch(error) {
         console.error("Error deleting item:", error);

@@ -9,7 +9,7 @@ const db = new pg.Client({ //change the password, user, and database names to wh
   user: "postgres",
   host: "localhost",
   database: "media_notes",
-  password: "Moh@med17",
+  password: "INSERTPASSWORD",
   port: 5432,
 });
 db.connect();
@@ -31,6 +31,8 @@ app.get ("/media", async (req, res) => {
   console.log(items); // Check what's being sent
   res.json({ postData: items });
 });
+
+
 
 
 //shows all notes
@@ -70,6 +72,41 @@ app.post('/add-note', async (req, res) => {
 
   try {
     console.log("Received data:", req.body); // Add this
+
+    //Insert note
+    await db.query(
+      `INSERT INTO notes (title, note, user_email, media_name)
+       VALUES ($1, $2, $3, $4)`,
+      [title, note, email, media_name]
+    );
+
+    res.status(200).json({ message: 'Note added successfully' });
+  } catch (err) {
+    console.error("Error inserting note:", err); // Log the real error
+    res.status(500).json({ error: 'Failed to add note' });
+  }
+});
+
+
+app.post('/add-note-with-game', async (req, res) => {
+  const { email, title, note, media_name } = req.body;
+  console.log(email);
+
+  try {
+    console.log("Received data:", req.body); // Add this
+
+    const checkMedia = await db.query(
+      "SELECT 1 FROM media WHERE title = $1 LIMIT 1;", [media_name]
+    );
+
+    const inMedia = checkMedia.rowCount;
+      if (inMedia <= 0) {
+        await db.query(
+        `INSERT INTO media (title, media_type, user_email)
+        VALUES ($1, $2, $3)`,
+        [media_name, 'Video Game', email]
+      );
+    }
 
     //Insert note
     await db.query(

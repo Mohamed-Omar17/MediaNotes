@@ -9,6 +9,7 @@ import AddNoteForm from './AddNoteForm';
 import Test from '../../pages/Test';
 import LoginSignup from './LoginSignup';
 import UserHome from '../../pages/UserHome';
+import AddNoteWithGame from './AddNoteWithGame';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<UserHome />} />
         <Route path="/notes/:mediaId" element={<Card />} />
+        <Route path="/create-note" element={<AddNoteWithGame />} />
       </Routes>
     </>
   )
