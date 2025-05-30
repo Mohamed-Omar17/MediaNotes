@@ -1,3 +1,13 @@
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+import dotenv from 'dotenv';
+
+// This recreates __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load .env from root directory
+dotenv.config({ path: resolve(__dirname, '../../.env') });
 import express from 'express';
 import pg from 'pg';
 
@@ -9,10 +19,11 @@ const db = new pg.Client({ //change the password, user, and database names to wh
   user: "postgres",
   host: "localhost",
   database: "media_notes",
-  password: "INSERTPASSWORD",
+  password: process.env.DATABASE_PASSWORD,
   port: 5432,
 });
 db.connect();
+console.log("Database password:", process.env.DATABASE_PASSWORD);
 
 
 let user = "Mohamed"; //set this to the email you use to test
