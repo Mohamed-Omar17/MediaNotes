@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../client/reactComponents/index.css'
+import '../client/reactComponents/index.scss'
 
 
 function UserHome() {
@@ -52,7 +52,7 @@ function UserHome() {
   return (
     <div className="select-game-div">
       <div>
-        <h2 className="component-header" style={{fontFamily: 'MyCustomFont', fontSize: '40px'}}>Your Media</h2>
+        <h2 className="component-header" style={{fontSize: '40px'}}>Your Media</h2>
         {data.map((item, index) => (
           <button
               key={index}

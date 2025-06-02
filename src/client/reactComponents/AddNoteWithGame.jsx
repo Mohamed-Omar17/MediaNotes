@@ -33,21 +33,35 @@ function AddNoteWithGame() {
   };
 
   return (
+    <div className="center-form-vertically">
+    <div className="submission-box">
     <form onSubmit={handleSubmit}>
-      <label>Email:</label>
-      <input type="text" name="email" value={data.email} onChange={handleChange} required />
+      <div className="form-row">
+        <label>Email:</label>
+        <input type="text" name="email" value={data.email} onChange={handleChange} required />
         <br />
-      <label>Note Title:</label>
-      <input type="text" name="title" value={data.title} onChange={handleChange} required />
-      <br />
-      <label>Note:</label>
-      <input type="text" name="note" value={data.note} onChange={handleChange} required />
-      <br />
-      <label>Game:</label>
-      <input type="text" name="media_name" value={data.media_name} onChange={handleChange} required />
-      <br />
-      <button type="submit">Submit Note</button>
+      </div>
+      <div className="form-row">
+        <label>Note Title:</label>
+        <input type="text" name="title" value={data.title} onChange={handleChange} required />
+        <br />
+      </div>
+      <div className="form-row">
+        <label>Note:</label>
+        <input type="text" name="note" value={data.note} onChange={handleChange} required />
+        <br />
+      </div>
+      
+      <div className="form-row">
+        <label>Game:</label>
+        <input type="text" name="media_name" value={data.media_name} onChange={handleChange} required />
+        <br />
+      </div>
+      
+      <button type="submit" style={{color: '#0f0', backgroundColor: 'black'}}><p style={{padding: '2px'}}>Submit Note</p></button>
     </form>
+    </div>
+    </div>
   );
 }
 

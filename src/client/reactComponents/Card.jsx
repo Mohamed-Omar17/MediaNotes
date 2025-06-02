@@ -54,10 +54,12 @@ function Card() {
           <p>{item.title}</p>
           <p>{item.media}</p>
           <p>{item.email}</p>
-          <button onClick={() => handleDelete(item.id)}>Delete</button>
+          <div className="main-section__item">
+            <button className="bit16-button has-red-background" onClick={() => handleDelete(item.id)}>Delete</button>
+          </div>
         </div>
       ))}
-      <AddNoteForm  title={gameTitle} />
+      <AddNoteForm title={gameTitle} />
     </div>
   )
 }
