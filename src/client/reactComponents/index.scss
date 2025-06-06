@@ -46,7 +46,7 @@ body {
 
 .component-header {
     background-image: linear-gradient(white, lime);
-    color: transparent;
+    //color: transparent;
     background-clip: text;
 }
 
@@ -84,7 +84,6 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   margin: 0;
 }
 
@@ -189,14 +188,14 @@ $polygon-points: (
   }
 
   &::before {
-    background-color: $button-shadow;
+    //background-color: $button-shadow;
     left: calc(0% - #{$border-outset});
     top: calc(100% - (#{$border-outset}));
     clip-path: generate-clip-path($polygon-points);
   }
 
   &::after {
-    background-color: $button-shine;
+    //background-color: $button-shine;
     right: calc(0% - #{$border-outset});
     bottom: calc(100% - (#{$border-outset}));
     transform: rotate(0.5turn);
@@ -205,10 +204,10 @@ $polygon-points: (
 
   &:hover {
     &::before {
-      background-color: $button-hover-shadow;
+      //background-color: $button-hover-shadow;
     }
     &::after {
-      background-color: $button-hover-shine;
+      //background-color: $button-hover-shine;
     }
   }
 

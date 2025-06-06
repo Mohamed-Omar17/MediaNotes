@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import AddNoteForm from './AddNoteForm';
+import AddNoteWithGame from './AddNoteWithGame';
 
 
 function Card() {
@@ -59,7 +60,7 @@ function Card() {
           </div>
         </div>
       ))}
-      <AddNoteForm title={gameTitle} />
+      <AddNoteWithGame minHeight="0vh"/>
     </div>
   )
 }

@@ -3,9 +3,10 @@ import './App.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function AddNoteWithGame() {
+function AddNoteWithGame(props) {
+    const minHeight=props.minHeight;
     const navigate = useNavigate();
-  const [data, setData] = useState({
+    const [data, setData] = useState({
     email : '',
     title: '',
     note : '',
@@ -33,7 +34,7 @@ function AddNoteWithGame() {
   };
 
   return (
-    <div className="center-form-vertically">
+    <div className="center-form-vertically" style={{minHeight: minHeight || '100vh'}}>
     <div className="submission-box">
     <form onSubmit={handleSubmit}>
       <div className="form-row">
