@@ -53,6 +53,7 @@ function UserHome() {
     <div className="select-game-div">
       <div>
         <h2 className="component-header" style={{fontSize: '40px'}}>Your Media</h2>
+        <div className="card-box">
         {data.map((item, index) => (
           <button
               key={index}
@@ -67,6 +68,7 @@ function UserHome() {
               </div>
           </button>
         ))}
+        </div>
       </div>
       <div>
         <button
